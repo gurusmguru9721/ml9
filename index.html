@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h1>
+        <center>GURU CODE HUB</center>
+    </h1>
+    <h1>
+        <center>ML 9</center>
+    </h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Copy to Clipboard</title>
+</head>
+<body>
+
+    <div>
+        <h3>Section 1</h3>
+        <textarea id="copyText1" rows="4" cols="50">
+            # Importing numpy library as nmp 
+import numpy as nmp 
+# Importing pandas library as pds 
+import pandas as pds 
+# Importing matplotlib library as pplt 
+import matplotlib.pyplot as pplt 
+# Importing DBSCAN from cluster module of Sklearn library 
+from sklearn.cluster import DBSCAN 
+# Importing StandardSclaer and normalize from preprocessing module of Sklearn library 
+from sklearn.preprocessing import StandardScaler 
+from sklearn.preprocessing import normalize 
+# Importing PCA from decomposition module of Sklearn 
+from sklearn.decomposition import PCA</textarea>
+        <button onclick="copyToClipboard('copyText1')">Copy Text</button>
+    </div>
+
+    <div>
+        <h3>Section 2</h3>
+        <textarea id="copyText2" rows="4" cols="50">
+            # Loading the data inside an initialized variable 
+M = pds.read_csv('sampleDataset.csv') # Path of dataset file 
+# Dropping the CUST_ID column from the dataset with drop() function 
+M = M.drop('CUST_ID', axis = 1) 
+# Using fillna() function to handle missing values 
+M.fillna(method ='ffill', inplace = True) 
+# Printing dataset head in output 
+print(M.head())  </textarea>
+        <button onclick="copyToClipboard('copyText2')">Copy Text</button>
+    </div>
+
+    <div>
+        <h3>Section 3</h3>
+        <textarea id="copyText3" rows="4" cols="50">
+            # Initializing a variable with the StandardSclaer() function 
+scalerFD = StandardScaler() 
+# Transforming the data of dataset with Scaler 
+M_scaled = scalerFD.fit_transform(M) 
+# To make sure that data will follow gaussian distribution 
+# We will normalize the scaled data with normalize() function 
+M_normalized = normalize(M_scaled) 
+# Now we will convert numpy arrays in the dataset into dataframes of panda 
+M_normalized = pds.DataFrame(M_normalized) 
+</textarea>
+        <button onclick="copyToClipboard('copyText3')">Copy Text</button>
+    </div>
+
+
+    <div>
+        <h3>Section 4</h3>
+        <textarea id="copyText4" rows="4" cols="50">
+            # Initializing a variable with the PCA() function 
+pcaFD = PCA(n_components = 2) # components of data 
+# Transforming the normalized data with PCA 
+M_principal = pcaFD.fit_transform(M_normalized) 
+# Making dataframes from the transformed data 
+M_principal = pds.DataFrame(M_principal) 
+# Creating two columns in the transformed data 
+M_principal.columns = ['C1', 'C2'] 
+# Printing the head of the transformed data 
+print(M_principal.head())</textarea>
+        <button onclick="copyToClipboard('copyText4')">Copy Text</button>
+    </div>
+
+    <div>
+        <h3>Section 5</h3>
+        <textarea id="copyText5" rows="4" cols="50">
+            # Creating clustering model of the data using the DBSCAN function and providing parameters 
+in it 
+db_default = DBSCAN(eps = 0.0375, min_samples = 3).fit(M_principal) 
+# Labelling the clusters we have created in the dataset 
+labeling = db_default.labels_  </textarea>
+        <button onclick="copyToClipboard('copyText5')">Copy Text</button>
+    </div>
+
+
+
+    <div>
+        <h3>Section 6</h3>
+        <textarea id="copyText6" rows="4" cols="50">
+            # Visualization of clustering model by giving different colours 
+            colours = {} 
+            # First colour in visualization is green 
+            colours[0] = 'g' 
+            # Second colour in visualization is black 
+            colours[1] = 'k' 
+            # Third colour in visualization is red 
+            colours[2] = 'r' 
+            # Last colour in visualization is blue 
+            colours[-1] = 'b' 
+            # Creating a colour vector for each data point in the dataset cluster 
+            cvec = [colours[label] for label in labeling] 
+            # Construction of the legend 
+            # Scattering of green colour 
+            g = pplt.scatter(M_principal['C1'], M_principal['C2'], color ='g'); 
+            # Scattering of black colour 
+            k = pplt.scatter(M_principal['C1'], M_principal['C2'], color ='k'); 
+            # Scattering of red colour 
+            r = pplt.scatter(M_principal['C1'], M_principal['C2'], color ='r'); 
+            # Scattering of green colour 
+            b = pplt.scatter(M_principal['C1'], M_principal['C2'], color ='b'); 
+            # Plotting C1 column on the X-Axis and C2 on the Y-Axis 
+            # Fitting the size of the figure with figure function 
+            pplt.figure(figsize =(9, 9)) 
+            # Scattering the data points in the Visualization graph 
+            pplt.scatter(M_principal['C1'], M_principal['C2'], c = cvec) 
+            # Building the legend with the coloured data points and labelled 
+            pplt.legend((g, k, r, b), ('Label M.0', 'Label M.1', 'Label M.2', 'Label M.-1')) 
+            # Showing Visualization in the output 
+            pplt.show() 
+            </textarea>
+        <button onclick="copyToClipboard('copyText6')">Copy Text</button>
+    </div>
+
+
+
+    <div>
+        <h3>Section 7</h3>
+        <textarea id="copyText7" rows="4" cols="50">
+            # Tuning the parameters of the model inside the DBSCAN function 
+            dts = DBSCAN(eps = 0.0375, min_samples = 50).fit(M_principal) 
+            # Labelling the clusters of data points 
+            labeling = dts.labels_</textarea>
+        <button onclick="copyToClipboard('copyText7')">Copy Text</button>
+    </div>
+
+
+
+    <div>
+        <h3>Section 8</h3>
+        <textarea id="copyText8" rows="4" cols="50">
+            # Labelling with different colours 
+            colours1 = {} 
+            # labelling with Red colour 
+            colours1[0] = 'r' 
+            # labelling with Green colour 
+            colours1[1] = 'g' 
+            # labelling with Blue colour 
+            colours1[2] = 'b' 
+            colours1[3] = 'c' 
+            # labelling with Yellow colour 
+            colours1[4] = 'y' 
+            # Magenta colour 
+            colours1[5] = 'm' 
+            # labelling with Black colour 
+            colours1[-1] = 'k' 
+            # Labelling the data points with the colour variable we have defined 
+            cvec = [colours1[label] for label in labeling] 
+            # Defining all colour that we will use 
+            colors = ['r', 'g', 'b', 'c', 'y', 'm', 'k' ] 
+            # Scattering the colours onto the data points 
+            r = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[0]) 
+            g = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[1]) 
+            b = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[2]) 
+            c = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[3]) 
+            y = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[4]) 
+            m = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[5]) 
+            k = pplt.scatter( 
+             M_principal['C1'], M_principal['C2'], marker ='o', color = colors[6]) 
+            # Fitting the size of the figure with figure function 
+            pplt.figure(figsize =(9, 9)) 
+            # Scattering column 1 into X-axis and column 2 into y-axis 
+            pplt.scatter(M_principal['C1'], M_principal['C2'], c = cvec) 
+            # Constructing a legend with the colours we have defined 
+            pplt.legend((r, g, b, c, y, m, k), 
+             ('Label M.0', 'Label M.1', 'Label M.2', 'Label M.3', 'Label M.4','Label M.5', 'Label M.-1'), 
+            # Using different labels for data points 
+             scatterpoints = 1, # Defining the scatter point 
+             loc ='upper left', # Location of cluster scattering 
+             ncol = 3, # Number of columns 
+             fontsize = 10) # Size of the font 
+            # Displaying the visualisation of changes in cluster scattering 
+            pplt.show() </textarea>
+        <button onclick="copyToClipboard('copyText8')">Copy Text</button>
+    </div>
+
+
+
+    
+
+
+
+    <!-- Add more sections as needed -->
+
+    <script>
+        function copyToClipboard(elementId) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            document.execCommand("copy");
+            alert("Text copied to clipboard: " + copyText.value);
+        }
+    </script>
+
+</body>
+</html>
